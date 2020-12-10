@@ -26,6 +26,8 @@ class Group(models.Model):
     def __str__(self):
         return self.location
 
+   
+
     def save(self,*args,**kwargs):
         #replacing and lowercasing things for the self.name
         self.slug = slugify(self.location)
@@ -33,7 +35,7 @@ class Group(models.Model):
         super().save(*args,**kwargs)
 
     def get_absolute_url(self):
-        return reverse('groups:single',kwargs={'slug':self.slug})
+        return reverse('groups:single',kwargs={'slug':self.id})
 
     class Meta:
         ordering = ['-date']

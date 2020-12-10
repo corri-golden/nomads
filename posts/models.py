@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.conf import settings
 
 import misaka
+
+
 from groups.models import Group
 
 # Create your models here.
@@ -18,7 +20,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     message = models.TextField()
     message_html = models.TextField(editable=False)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts',null=True,blank=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='posts')
 
     def __str__(self):
         return self.message
@@ -29,7 +31,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         #its to relate post back to url
-        return reverse('posts:single', kwargs={"username": self.user.username,'pk':self.pk})
+        return reverse('groups:all', kwargs={"username": self.user.username,'pk':self.pk, "group":self.group.id})
 
     
     class Meta:

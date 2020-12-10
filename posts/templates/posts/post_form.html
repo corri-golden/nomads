@@ -5,8 +5,15 @@
 {% block post_content %}
 <h4>Create New Post</h4>
 {{user.username}}
+{{post.group.id}}
+{{group.slug}}
+<h1>{{post.id}}</h1>
 {{group.location}}
-<form method="POST" action="{% url 'posts:create' %}" id="post">
+{{post.group.id}}
+{{post.id}}
+
+
+<form method="POST" action="{% url 'posts:create' 1  %}" id="post">
 	{% csrf_token %}
 	{% bootstrap_form form %}
 	<input type="submit" value="Post" class="btn btn-primary btn-large">

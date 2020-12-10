@@ -9,6 +9,7 @@ from django.views import generic
 # has to install braces 
 from braces.views import SelectRelatedMixin
 from . import models
+from groups.models import Group
 # from . import forms
 # a function model that allows to set a user object = to get_user_model and call it
 from django.contrib.auth import get_user_model
@@ -48,20 +49,13 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
-    # form_class = forms.PostForm
-    fields = ('message','group')
+    
+    fields = ('message',)
     model = models.Post
-
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs.update({"user": self.request.user})
-    #     return kwargs
-
-    # check if the form is valid.  connecting the post to user.
+    select_related = ('user', 'group')
+    
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        #set = to the user that sent the request
-        #connecting the post to the user
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)

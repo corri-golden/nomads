@@ -27,16 +27,18 @@ and holds everything the model has {% endcomment %}
 
 {% block group_content %}
 <h1>yo</h1>
+<h1>{{group.id}}</h1>
 <div class="col-md-8">
     {% comment %} {% if group.posts.count == 0 %} {% endcomment %}
     {% comment %} <h2>No Post in this Group Yet</h2> {% endcomment %}
-    <a href="{% url 'posts:create' slug=group.slug %}">
+    
+    <a href="{% url 'posts:create' group.id  %}">
                 Leave a Comment
             </a>
     {% comment %} {% else %} {% endcomment %}
         {% for post in group.posts.all %}
             {% comment %} is like saying extends but the html is injected here {% endcomment %}
-            {% include "posts/_post.html" %}
+            {% comment %} {% include "posts/_post.html" %} {% endcomment %}
         {% endfor %}
 
     {% comment %} {% endif %}  {% endcomment %}

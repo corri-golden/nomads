@@ -28,7 +28,7 @@
     <div class="list-group">
         {% comment %} object list will be a list of groups {% endcomment %}
         {% for group in object_list %}
-        <a href="{% url 'groups:single' slug=group.slug%}">
+        <a href="{% url 'groups:single' group.id%}">
             <h3 class='title list-group-item-heading'>{{group.location}}</h3>
          </a>
             <h6 class='title list-group-item-heading'>{{group.date}}</h6>
